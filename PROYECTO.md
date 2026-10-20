@@ -40,7 +40,7 @@
   - Testimonios: no hay. Se piden reseñas de Google después del lanzamiento.
   - Plazo y presupuesto.
   - No aplica: precios (decisión de no publicarlos). Los colores y tipografías se derivan del logo en la Fase 2, porque no hay manual de marca.
-- Fase actual: 4 (Desarrollo), en curso: sitio Astro en sitio/ publicado como demo en GitHub Pages. Fase 3 cerrada el 2026-10-20 con CONTENIDO.md final (sin datos por confirmar; el cliente no entregará más material). Fase 0 cerrada el 2026-10-20 con BRIEF.md aprobado. Fase 1 cerrada el 2026-10-20 con ARQUITECTURA.md aprobado. Fase 2 cerrada el 2026-10-20 con DESIGN.md y prototipo aprobados (Dirección A, paleta Blanco)
+- Fase actual: 5 (QA y cliente). Fase 4 cerrada el 2026-10-20: sitio Astro en sitio/, publicado en GitHub Pages (PageSpeed móvil 98, LCP 2,0 s, CLS 0). Fase 3 cerrada el 2026-10-20 con CONTENIDO.md final (sin datos por confirmar; el cliente no entregará más material). Fase 0 cerrada el 2026-10-20 con BRIEF.md aprobado. Fase 1 cerrada el 2026-10-20 con ARQUITECTURA.md aprobado. Fase 2 cerrada el 2026-10-20 con DESIGN.md y prototipo aprobados (Dirección A, paleta Blanco)
 - Riesgos:
   - Las animaciones pueden empeorar el CLS y el INP. Se mide después de cada sección animada y se respeta `prefers-reduced-motion`.
   - Fotos: la resolución (unos 1086×1448) no alcanza para un hero a pantalla completa en escritorio grande. Pestañas, cejas y piel no tienen fotos. En la Fase 2 se resuelve con recortes, composición y tipografía.
