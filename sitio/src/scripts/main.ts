@@ -208,7 +208,13 @@ function initMotion() {
 
     /* HERO (jerarquía: primero el mensaje, después la prueba): letras que suben + cortina que se recoge */
     const heroTl = gsap.timeline({ defaults: { ease: 'expo.out' } });
-    const heroSplit = SplitText.create('.hero h1 .line', { type: 'chars', charsClass: 'ch' });
+    // Accesibilidad: un solo nombre en el h1 y las letras partidas ocultas al lector de pantalla.
+    // (Con aria "auto", SplitText pone aria-label en cada <span>/<em>, que ARIA no permite: aria-prohibited-attr.)
+    const h1 = $('.hero h1');
+    h1.setAttribute('aria-label', h1.textContent!.replace(/\s+/g, ' ').trim());
+    $$('.line', h1).forEach((l) => l.setAttribute('aria-hidden', 'true'));
+    cleanups.push(() => { h1.removeAttribute('aria-label'); $$('.line', h1).forEach((l) => l.removeAttribute('aria-hidden')); });
+    const heroSplit = SplitText.create('.hero h1 .line', { type: 'chars', charsClass: 'ch', aria: 'none' });
     heroTl.from(heroSplit.chars, { yPercent: 115, rotate: 7, duration: 1.3, stagger: 0.022 }, 0.15)
       .to('.hero-media .main .curtain', { yPercent: -101, duration: 1.4, ease: 'expo.inOut' }, 0)
       .fromTo('.hero-media .main img', { scale: 1.35 }, { scale: mouse ? 1.08 : 1, duration: 2.2 }, 0.1)

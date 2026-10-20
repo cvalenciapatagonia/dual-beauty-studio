@@ -1,5 +1,5 @@
 # Construye el sitio Astro (sitio/) y lo publica en GitHub Pages en cada push a main.
-# Demo con noindex. Para el dominio final (Cloudflare): sin BASE_PATH y con PUBLIC_INDEXAR=true.
+# Indexable (decisión del 2026-10-20). Para el dominio final (Cloudflare): sin BASE_PATH y con PUBLIC_INDEXAR=true.
 name: Publicar en GitHub Pages
 
 on:
@@ -34,6 +34,7 @@ jobs:
         env:
           BASE_PATH: /dual-beauty-studio
           SITE_URL: https://cvalenciapatagonia.github.io
+          PUBLIC_INDEXAR: "true"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: sitio/dist
