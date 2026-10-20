@@ -1,0 +1,22 @@
+# Dependencias y builds de Astro
+node_modules/
+dist/
+.astro/
+
+# Variables de entorno (claves, tokens)
+.env
+.env.*
+!.env.example
+
+# Sistema y editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log
+
+# Privado: no se publica (repo público de muestra)
+PROPUESTA_CONTRATO.md
+material-cliente/estudio-sillon-espejo-editada.png

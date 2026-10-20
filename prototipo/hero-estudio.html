@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototipo · Hero estudio · Dual Beauty Studio</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Jost:wght@400;500&display=swap">
+<style>
+  /* ---------- Tokens de la Dirección A (en el sitio real viven en tokens.css) ---------- */
+  :root {
+    --bg: #F5F1EA; --bg-2: #ECE5DA;
+    --ink: #1C1815; --ink-2: #5E544A;
+    --accent: #7F5C27; --accent-deco: #B08A4E;
+    --btn-bg: #1C1815; --btn-ink: #F5F1EA; --btn-bg-hover: #4B3020;
+    --line: #D8CDBC; --focus: #7F5C27;
+    --font-display: 'Bodoni Moda', Georgia, serif;
+    --font-body: 'Jost', system-ui, sans-serif;
+    --h1: clamp(3rem, 5vw, 4.75rem);
+    --side: clamp(240px, 19vw, 300px);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ---------- Base ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  .label { margin: 0; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); }
+
+  /* Selector de versión (solo prototipo) */
+  .proto-bar { position: fixed; z-index: 50; top: 16px; right: 16px; display: flex; gap: 4px; padding: 4px; background: #fff; color: #1C1815; border-radius: 999px; box-shadow: 0 4px 16px rgba(0,0,0,.15); font: 500 13px/1 system-ui, sans-serif; }
+  .proto-bar a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; text-decoration: none; }
+  .proto-bar a[aria-current="page"] { background: #1C1815; color: #fff; }
+
+  /* ---------- Botón ---------- */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 56px; padding: 0 24px; background: var(--btn-bg); color: var(--btn-ink); text-decoration: none; font-size: 0.9375rem; font-weight: 500; letter-spacing: 0.06em; transition: background-color .25s ease; }
+  .btn:hover { background: var(--btn-bg-hover); }
+  .btn svg { flex: none; }
+  .link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 0.9375rem; font-weight: 500; letter-spacing: 0.06em; text-decoration: none; border-bottom: 1px solid currentColor; }
+  .link svg { transition: transform .3s var(--ease-out); }
+  .link:hover svg { transform: translateY(3px); }
+
+  /* ---------- Hero: barra lateral · texto · foto ---------- */
+  .hero { display: grid; grid-template-columns: var(--side) minmax(0, 1fr) auto; min-height: 100svh; }
+
+  .side { display: flex; flex-direction: column; gap: 40px; padding: 40px 28px 32px; border-right: 1px solid var(--line); }
+  .side .logo img { width: 100%; max-width: 190px; height: auto; margin-inline: auto; }
+  .side .rule { width: 100%; height: 1px; margin: 0; border: 0; background: var(--accent-deco); }
+  .nav { display: flex; flex-direction: column; gap: 6px; }
+  .nav a { display: flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-size: 1.25rem; text-decoration: none; }
+  .nav a:hover { font-style: italic; }
+  .side .btn { margin-top: auto; width: 100%; padding-inline: 14px; gap: 10px; font-size: 0.875rem; letter-spacing: 0.03em; white-space: nowrap; }
+
+  .hero-text { display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: 64px clamp(1.5rem, 3vw, 3.5rem); }
+  .hero h1 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: var(--h1); line-height: 0.98; letter-spacing: -0.015em; }
+  .hero h1 em { color: var(--accent); }
+  .hero h1 .line { display: block; white-space: nowrap; }
+  .hero .lead { margin: 0; max-width: 26rem; font-size: 1.1875rem; color: var(--ink-2); }
+  .areas { display: flex; gap: 16px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-2); }
+  .areas span[aria-hidden] { color: var(--accent-deco); }
+
+  /* Foto del estudio: recorte 18:25 anclado a la izquierda.
+     Deja fuera la ring light, la planta y la camilla fucsia; queda espejo con flores + sillón.
+     El alto llega a 1086 px reales, así que en pantallas grandes no se estira de más. */
+  .hero-media { position: relative; height: 100svh; max-height: 1086px; aspect-ratio: 18 / 25; }
+  .hero-media .reveal { position: absolute; inset: 0; overflow: hidden; }
+  .hero-media .main { width: 100%; height: 100%; object-fit: cover; object-position: 6% 50%; }
+
+  /* Segundo tiempo: resultado real, superpuesto sobre el borde (reemplaza "Otro rincón") */
+  .inset { position: absolute; z-index: 2; left: -96px; bottom: 56px; width: 168px; margin: 0; padding: 8px 8px 0; background: var(--bg); }
+  .inset img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 65%; }
+  .inset a { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding-inline: 2px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-2); text-decoration: none; }
+
+  /* Palabras del titular: máscara para que suban (solo transform) */
+  .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .w > span { display: inline-block; }
+
+  /* Persiana: 10 láminas color cal (eco de las persianas reales del estudio). Solo con JS y motion activo. */
+  .veil { display: none; position: absolute; inset: 0; pointer-events: none; grid-template-rows: repeat(10, minmax(0, 1fr)); }
+  .js-motion .veil { display: grid; }
+  .veil i { display: block; background: var(--bg); transform-origin: 50% 0; margin-bottom: -1px; will-change: transform; }
+
+  /* Sección siguiente (solo para poder hacer scroll en el prototipo) */
+  .after { padding: 8rem clamp(1.25rem, 5.5vw, 5rem); background: var(--bg-2); }
+  .after h2 { margin: 0 0 24px; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.375rem, 4.2vw, 3.75rem); line-height: 1.05; }
+  .after p { max-width: 36rem; margin: 0; color: var(--ink-2); }
+
+  .fab, .topbar { display: none; }
+
+  /* ---------- Tablet: la foto se angosta para dejar aire al titular ---------- */
+  @media (max-width: 1199px) and (min-width: 900px) {
+    .hero-media { aspect-ratio: 3 / 5; }
+    .inset { left: -72px; width: 132px; }
+  }
+
+  /* ---------- Móvil: barra superior + texto + foto; botón fijo abajo ---------- */
+  @media (max-width: 899px) {
+    .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+    .side { display: none; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid var(--line); }
+    .topbar .logo img { height: 64px; width: auto; }
+    .topbar nav { display: flex; gap: 4px; }
+    .topbar nav a { display: flex; align-items: center; min-height: 44px; padding-inline: 8px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; }
+    .hero-text { padding: 40px 20px 32px; gap: 22px; }
+    .hero .lead { font-size: 1.0625rem; }
+    .areas { gap: 12px; font-size: 0.75rem; }
+    .hero-media { height: auto; max-height: none; width: 100%; }
+    .hero-media .main { object-position: 0% 50%; }
+    .inset { left: auto; right: 16px; bottom: -40px; width: 132px; padding: 6px 6px 0; }
+    .inset a { font-size: 0.6875rem; letter-spacing: 0.1em; min-height: 40px; white-space: nowrap; }
+    .after { padding-top: 6rem; padding-bottom: 10rem; }
+    .fab { display: flex; position: fixed; z-index: 40; left: 16px; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    .proto-bar { top: auto; bottom: 88px; right: 12px; }
+  }
+</style>
+</head>
+<body>
+<nav class="proto-bar" aria-label="Versión del hero">
+  <a href="index.html">Hero cabello</a>
+  <a href="hero-estudio.html" aria-current="page">Hero estudio</a>
+</nav>
+
+<header class="topbar">
+  <a class="logo" href="#inicio" aria-label="Dual Beauty Studio, inicio"><img src="assets/logo-claro.png" alt="Dual Beauty Studio" width="1169" height="1068"></a>
+  <nav aria-label="Principal (móvil)">
+    <a href="#servicios">Servicios</a>
+    <a href="#espacio">Estudio</a>
+  </nav>
+</header>
+
+<main>
+  <section id="inicio" class="hero">
+    <aside class="side">
+      <a class="logo" href="#inicio" aria-label="Dual Beauty Studio, inicio"><img src="assets/logo-claro.png" alt="Dual Beauty Studio" width="1169" height="1068"></a>
+      <hr class="rule">
+      <nav class="nav" aria-label="Principal">
+        <a href="#servicios">Servicios</a>
+        <a href="#espacio">El estudio</a>
+        <a href="#agendar">Cómo agendar</a>
+      </nav>
+      <a class="btn" href="https://wa.me/56951269288?text=Hola%2C%20quiero%20agendar%20una%20hora." target="_blank" rel="noopener" data-cta="lateral">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+        Agenda por WhatsApp
+      </a>
+    </aside>
+
+    <div class="hero-text">
+      <p class="label" data-hero-fade>Rauquén, Curicó · Con hora coordinada</p>
+      <h1>
+        <span class="line"><span class="w"><span>Este</span></span> <span class="w"><span>tiempo</span></span></span>
+        <em class="line"><span class="w"><span>es</span></span> <span class="w"><span>para</span></span> <span class="w"><span>ti.</span></span></em>
+      </h1>
+      <p class="lead" data-hero-fade>Un estudio tranquilo en casa, dos profesionales y tu hora coordinada directamente con nosotras. Cuidamos tu cabello, tu mirada y tu piel.</p>
+      <div data-hero-fade>
+        <a class="link" href="#espacio">Conoce el estudio
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M5 13l7 7 7-7"/></svg>
+        </a>
+      </div>
+      <div class="areas" data-hero-fade><span>Mirada</span><span aria-hidden="true">—</span><span>Cabello</span><span aria-hidden="true">—</span><span>Piel</span></div>
+    </div>
+
+    <div class="hero-media">
+      <div class="reveal">
+        <img class="main" src="../material-cliente/estudio-sillon-espejo.webp" alt="El estudio de Dual: sillón de peluquería frente a un espejo con flores, muro de ladrillo blanco" width="1448" height="1086" fetchpriority="high">
+        <div class="veil" aria-hidden="true"></div>
+      </div>
+      <figure class="inset">
+        <img src="../material-cliente/cabello-resultado-largo-castano.webp" alt="Resultado de alisado en cabello largo castaño" width="1086" height="1448" loading="lazy">
+        <figcaption><a href="#resultados">Resultado real <span aria-hidden="true">↓</span></a></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="espacio" class="after">
+    <h2>Fin del prototipo del hero.</h2>
+    <p>Debajo vendrían Las tres áreas y Servicios (según ARQUITECTURA.md). Pendiente de decidir: al salir del hero, la barra lateral se reemplaza por una barra superior delgada con logo y botón de WhatsApp.</p>
+  </section>
+</main>
+
+<a class="btn fab" href="https://wa.me/56951269288?text=Hola%2C%20quiero%20agendar%20una%20hora." target="_blank" rel="noopener" data-cta="flotante">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+  Agenda por WhatsApp
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  // Sin GSAP (CDN caído) la página queda estática y completa.
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  var veil = document.querySelector('.hero-media .veil');
+  for (var i = 0; i < 10; i++) veil.appendChild(document.createElement('i'));
+
+  var mm = gsap.matchMedia();
+  mm.add({
+    motion: '(prefers-reduced-motion: no-preference)',
+    desktop: '(min-width: 900px)'
+  }, function (ctx) {
+    if (!ctx.conditions.motion) return; // movimiento reducido: todo visible y quieto
+    document.documentElement.classList.add('js-motion');
+
+    // Una sola idea: la persiana del estudio se abre y el titular sube palabra por palabra.
+    var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.to(veil.children, { scaleY: 0, duration: 0.8, stagger: 0.06 }, 0.1)
+      .from('.hero h1 .w > span', { yPercent: 110, duration: 0.9, stagger: 0.06 }, 0)
+      .from('[data-hero-fade]', { y: 16, opacity: 0, duration: 0.7, stagger: 0.08 }, 0.4)
+      .from('.inset', { y: 40, opacity: 0, duration: 0.9 }, 0.8);
+
+    // Escritorio: la foto se asienta con el scroll (1,06 → 1).
+    if (ctx.conditions.desktop) {
+      gsap.fromTo('.hero-media .main', { scale: 1.06 }, {
+        scale: 1, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+    }
+
+    return function () { document.documentElement.classList.remove('js-motion'); };
+  });
+
+  document.querySelectorAll('[data-cta]').forEach(function (a) {
+    a.addEventListener('click', function () { console.log('cta_whatsapp', a.dataset.cta); });
+  });
+})();
+</script>
+</body>
+</html>

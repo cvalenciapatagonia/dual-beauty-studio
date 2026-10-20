@@ -1,0 +1,49 @@
+# PROYECTO: Dual Beauty Studio
+- Fecha inicio / entrega objetivo: 2026-10-20 / POR DEFINIR (el cliente ya aprobó y dio libertad de desarrollo; referencia Nivel 2: 2 a 4 semanas)
+- Nivel (1/2/3) y por qué: **Nivel 2, editorial con motion.** Un negocio de belleza vende imagen, y el scroll animado transmite cuidado y estética sin el costo ni el peso del 3D. Se descartó el Nivel 1 porque el cliente pidió scroll con vida, y el Nivel 3 porque no hay producto que justifique 3D.
+- Sector: Emprendimiento (estudio de belleza)
+- Acción principal (conversión): WhatsApp, con botón que abre el chat y un mensaje prellenado según el servicio. El botón está siempre visible en móvil.
+- Presupuesto acordado (CLP) y forma de pago: POR DEFINIR
+- Stack y por qué (lenguaje simple):
+  - **Astro**: genera HTML estático, por lo que la página carga rápido (LCP) y solo envía JavaScript donde hace falta. Se descartó Next.js porque es más pesado para una landing.
+  - **CSS con variables (`tokens.css`)**: colores, tipografía y espacios propios de la marca en un solo archivo. Se descartó Tailwind para no arrastrar una estética genérica y mantener el control fino.
+  - **GSAP + ScrollTrigger**: animaciones al hacer scroll, precisas y gratuitas. Se descartaron las animaciones CSS puras como base porque el soporte todavía es parcial; se usan solo donde alcancen.
+  - **Lenis (solo escritorio)**: scroll suave sincronizado con GSAP. En móvil se deja el scroll nativo, que es más rápido y no afecta el INP.
+  - **sharp** (imágenes AVIF/WebP con tamaños responsivos) y **@fontsource** (fuentes servidas desde el propio sitio, sin Google Fonts): protegen el LCP y el CLS.
+  - **Sin CMS**: los cambios los hace Cristián. Es más simple, más rápido y no tiene costo mensual.
+  - **Cloudflare Pages**: hosting gratis, CDN global y HTTPS.
+- Skills elegidas (de Skills_rep), una por función:
+  - Dirección de diseño / anti-genérico: `01-diseno-estilos/design-taste-frontend` (la única de la familia "taste"; no se combina con otras)
+  - Motion GSAP: `04-gsap/gsap-core` + `04-gsap/gsap-scrolltrigger` (oficiales; ya activas globalmente)
+  - Rendimiento de animaciones: `03-animacion-ui/animation-performance` (ya activa globalmente)
+  - Auditoría y pulido de diseño: `06-auditoria-diseno/impeccable` (pesada, se invoca a mano en la Fase de QA)
+  - SEO on-page: `09-seo-nucleo/seo-page` → `seo-technical` → `seo-schema` (base, ya activas)
+  - SEO local (caso "local físico"): `09-seo-nucleo/seo-local` (schema LocalBusiness/BeautySalon, ya activa)
+  - QA en navegador: `14-herramientas-dev-y-qa/webapp-testing` (Playwright)
+- MCP elegidos:
+  - **Higgsfield**: opcional, solo si se quiere un video o loop para el hero a partir de las fotos propias. Requiere autorización del conector.
+  - **Claude in Chrome**: revisar referencias y probar la página.
+  - Descartados: Figma (el cliente no trae diseño) y Blender (no es Nivel 3).
+- Hosting / dominio: Cloudflare Pages / dominio POR DEFINIR (a nombre del cliente)
+- Material disponible:
+  - Logo en PNG (1323×1189) y 6 fotos propias en `material-cliente/` (4 de cabello y 2 del estudio).
+  - Borrador de descripciones de los 6 servicios y textos de apoyo en `CONTENIDO.md`.
+  - WhatsApp +56 9 5126 9288, Instagram @dual.beautystudio y ficha de Google.
+  - Ubicación publicable ("Rauquén, Curicó") y horario ("atención con hora coordinada").
+  - Referencias: Secret Magic (principal), Carla Acevedo y Karee.
+  - Estructura de la página en `ARQUITECTURA.md` (aprobada).
+- Material faltante:
+  - Logo vectorial (si no existe, Cristián lo redibuja en SVG en la Fase 2).
+  - Validación de los datos `[CONFIRMAR]` de `CONTENIDO.md`.
+  - Diferenciador final y meta numérica de mensajes.
+  - Fotos originales en mayor resolución (opcional).
+  - Testimonios: no hay. Se piden reseñas de Google después del lanzamiento.
+  - Plazo y presupuesto.
+  - No aplica: precios (decisión de no publicarlos). Los colores y tipografías se derivan del logo en la Fase 2, porque no hay manual de marca.
+- Fase actual: 4 (Desarrollo). Fase 3 cerrada el 2026-10-20 con CONTENIDO.md final (sin datos por confirmar; el cliente no entregará más material). Fase 0 cerrada el 2026-10-20 con BRIEF.md aprobado. Fase 1 cerrada el 2026-10-20 con ARQUITECTURA.md aprobado. Fase 2 cerrada el 2026-10-20 con DESIGN.md y prototipo aprobados (Dirección A, paleta Blanco)
+- Riesgos:
+  - Las animaciones pueden empeorar el CLS y el INP. Se mide después de cada sección animada y se respeta `prefers-reduced-motion`.
+  - Fotos: la resolución (unos 1086×1448) no alcanza para un hero a pantalla completa en escritorio grande. Pestañas, cejas y piel no tienen fotos. En la Fase 2 se resuelve con recortes, composición y tipografía.
+  - Los datos `[CONFIRMAR]` de los servicios dependen de las socias. Si se demoran, se atrasan el contenido final y las preguntas frecuentes, pero no el diseño.
+  - Logo solo en raster: redibujarlo en SVG puede alterar detalles del monograma, así que hay que validarlo con las socias.
+  - Privacidad: la dirección no debe aparecer en la ficha de Google, el schema ni las fotos, para ser coherentes con la web.
