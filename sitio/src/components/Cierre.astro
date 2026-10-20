@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/marca/logo-claro-recorte.png';
+import Icono from './Icono.astro';
+import { NEGOCIO, whatsapp } from '../data/sitio';
+---
+<section id="agendar" class="wrap closing" aria-labelledby="closing-title">
+  <div class="closing-card">
+    <div class="closing-text">
+      <p class="label" data-fade>Cómo agendar</p>
+      <h2 id="closing-title" class="h2 display" data-split>Escríbenos y <em>coordinamos tu hora.</em></h2>
+      <ol class="steps" data-fade>
+        <li><b>1</b><span>Nos escribes por WhatsApp con el servicio que buscas.</span></li>
+        <li><b>2</b><span>Coordinamos juntas el día y la hora que te acomoden.</span></li>
+        <li><b>3</b><span>Al confirmar, te enviamos la dirección exacta.</span></li>
+      </ol>
+      <a class="btn" href={whatsapp()} target="_blank" rel="noopener" data-cta="cierre" data-fade data-magnetic>
+        <Icono nombre="whatsapp-logo" />
+        Consulta por WhatsApp
+      </a>
+      <p class="closing-meta" data-fade>{NEGOCIO.localidad}. {NEGOCIO.horario}.</p>
+    </div>
+    <div class="closing-art">
+      <div class="closing-media reveal">
+        <Image src={logo} alt="Dual Beauty Studio" widths={[320, 640]} sizes="(max-width: 899px) 55vw, 300px" loading="lazy" />
+        <span class="curtain" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</section>

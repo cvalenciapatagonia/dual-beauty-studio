@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/marca/logo-oscuro-recorte.png';
+import IconoMarca from './IconoMarca.astro';
+import { NEGOCIO, whatsapp } from '../data/sitio';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<footer class="site-footer">
+  <div class="wrap footer">
+    <a class="logo" href={`${base}#inicio`} aria-label="Dual Beauty Studio, volver al inicio">
+      <Image src={logo} alt="Dual Beauty Studio" widths={[170, 330]} sizes="83px" loading="lazy" />
+    </a>
+    <p class="footer-info">{NEGOCIO.localidad}. {NEGOCIO.horario}.<br><a href={`${base}privacidad/`}>Aviso de privacidad</a></p>
+    <div class="footer-social">
+      <a class="icon-btn icon-btn--ig" href={NEGOCIO.instagram} target="_blank" rel="noopener" aria-label="Instagram de Dual Beauty Studio"><IconoMarca marca="instagram" /></a>
+      <a class="icon-btn icon-btn--wa" href={whatsapp()} target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" data-cta="footer"><IconoMarca marca="whatsapp" /></a>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href={whatsapp()} target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" data-cta="flotante"><span class="wa-label" aria-hidden="true">Escríbenos</span><IconoMarca marca="whatsapp" size={32} /></a>

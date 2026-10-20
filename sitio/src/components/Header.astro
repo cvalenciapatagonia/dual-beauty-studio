@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/marca/logo-claro-recorte.png';
+import IconoMarca from './IconoMarca.astro';
+import { NEGOCIO } from '../data/sitio';
+
+// En la portada las anclas son locales; en las otras páginas apuntan a la portada.
+interface Props { enPortada?: boolean }
+const { enPortada = true } = Astro.props;
+const raiz = enPortada ? '' : import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<header class="site-header">
+  <div class="wrap header">
+    <a class="logo" href={`${raiz}#inicio`} aria-label="Dual Beauty Studio, inicio">
+      <Image src={logo} alt="Dual Beauty Studio" widths={[150, 300]} sizes="75px" loading="eager" />
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href={`${raiz}#servicios`}>Servicios</a>
+      <a href={`${raiz}#espacio`}>El espacio</a>
+      <a href={`${raiz}#agendar`}>Cómo agendar</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-btn icon-btn--ig" href={NEGOCIO.instagram} target="_blank" rel="noopener" aria-label="Instagram de Dual Beauty Studio"><IconoMarca marca="instagram" /></a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,8 @@
+---
+// Logos oficiales (Simple Icons) en blanco, sobre el color de cada marca.
+import { siInstagram, siWhatsapp } from 'simple-icons';
+interface Props { marca: 'instagram' | 'whatsapp'; size?: number }
+const { marca, size = 22 } = Astro.props;
+const icono = marca === 'instagram' ? siInstagram : siWhatsapp;
+---
+<svg viewBox="0 0 24 24" width={size} height={size} fill="#FFFFFF" aria-hidden="true" focusable="false"><path d={icono.path} /></svg>

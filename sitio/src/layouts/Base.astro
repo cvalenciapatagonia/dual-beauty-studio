@@ -1,0 +1,95 @@
+---
+// Layout común: SEO, fuentes propias (sin Google Fonts), favicon, Open Graph y schema del negocio.
+import '@fontsource-variable/bodoni-moda/opsz.css';
+import '@fontsource-variable/bodoni-moda/opsz-italic.css';
+import '@fontsource-variable/jost/wght.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import bodoniNormal from '@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-normal.woff2?url';
+import bodoniItalic from '@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-italic.woff2?url';
+import jost from '@fontsource-variable/jost/files/jost-latin-wght-normal.woff2?url';
+import { NEGOCIO, SEO, SERVICIOS } from '../data/sitio';
+
+interface Props {
+  titulo?: string;
+  descripcion?: string;
+  // Solo la portada lleva el schema del negocio y el aviso de "motion en espera"
+  portada?: boolean;
+}
+const { titulo = SEO.titulo, descripcion = SEO.descripcion, portada = false } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(`${base}og.jpg`, Astro.site);
+// Mientras sea demo, nadie la indexa. Al lanzar en el dominio final: PUBLIC_INDEXAR=true en el build.
+const indexar = import.meta.env.PUBLIC_INDEXAR === 'true';
+
+// Schema BeautySalon sin dirección ni coordenadas (atienden en su domicilio: ARQUITECTURA.md §6)
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BeautySalon',
+  name: NEGOCIO.nombre,
+  url: new URL(base, Astro.site).href,
+  image: ogImage.href,
+  logo: new URL(`${base}icon-512.png`, Astro.site).href,
+  telephone: `+${NEGOCIO.telefono}`,
+  description: SEO.descripcion,
+  address: { '@type': 'PostalAddress', addressLocality: 'Curicó', addressRegion: 'Maule', addressCountry: 'CL' },
+  areaServed: { '@type': 'City', name: 'Curicó' },
+  sameAs: [NEGOCIO.instagram],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios',
+    itemListElement: SERVICIOS.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.nombre, category: s.area } })),
+  },
+};
+---
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{titulo}</title>
+  <meta name="description" content={descripcion}>
+  {!indexar && <meta name="robots" content="noindex">}
+  <link rel="canonical" href={canonical.href}>
+  <meta name="theme-color" content="#FBFAF7">
+
+  <link rel="icon" type="image/png" sizes="32x32" href={`${base}favicon-32.png`}>
+  <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`}>
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:site_name" content={NEGOCIO.nombre}>
+  <meta property="og:title" content={titulo}>
+  <meta property="og:description" content={descripcion}>
+  <meta property="og:url" content={canonical.href}>
+  <meta property="og:image" content={ogImage.href}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo de Dual Beauty Studio junto a un cabello largo castaño, liso y con brillo">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Las 3 fuentes del primer pantallazo: se piden en paralelo con el HTML -->
+  <link rel="preload" href={bodoniNormal} as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href={bodoniItalic} as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href={jost} as="font" type="font/woff2" crossorigin>
+
+  {portada && (
+    <>
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      <!-- Con motion, el titular espera oculto a que GSAP lo anime (evita que se vea y luego salte).
+           Si el JS falla o tarda, a los 2,5 s se muestra igual. -->
+      <script is:inline>
+        if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+          document.documentElement.classList.add('motion-wait');
+          setTimeout(function () { document.documentElement.classList.remove('motion-wait'); }, 2500);
+        }
+      </script>
+    </>
+  )}
+</head>
+<body>
+  <slot />
+</body>
+</html>

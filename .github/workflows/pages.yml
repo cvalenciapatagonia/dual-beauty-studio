@@ -1,5 +1,5 @@
-# Publica el sitio en GitHub Pages en cada push a main.
-# Hoy sube los archivos tal cual (prototipo). En la Fase 4 se agrega el build de Astro y se publica dist/.
+# Construye el sitio Astro (sitio/) y lo publica en GitHub Pages en cada push a main.
+# Demo con noindex. Para el dominio final (Cloudflare): sin BASE_PATH y con PUBLIC_INDEXAR=true.
 name: Publicar en GitHub Pages
 
 on:
@@ -17,16 +17,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sitio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: sitio/package-lock.json
+      - run: npm ci
+      - run: npm run build
+        env:
+          BASE_PATH: /dual-beauty-studio
+          SITE_URL: https://cvalenciapatagonia.github.io
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: sitio/dist
+
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
       - id: deployment
         uses: actions/deploy-pages@v4

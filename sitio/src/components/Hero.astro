@@ -1,0 +1,46 @@
+---
+import { Picture } from 'astro:assets';
+import resultado from '../assets/fotos/cabello-resultado-largo-castano.webp';
+import proceso from '../assets/fotos/cabello-proceso-alisado.webp';
+import Icono from './Icono.astro';
+import { NEGOCIO, whatsapp } from '../data/sitio';
+---
+<section id="inicio" class="wrap hero">
+  <div class="hero-text">
+    <p class="label" data-hero-fade>{NEGOCIO.localidad} · Con hora coordinada</p>
+    <h1 class="display">
+      <span class="line">Este tiempo</span>
+      <em class="line">es para ti.</em>
+    </h1>
+    <p class="lead" data-hero-fade>Dos profesionales, un espacio tranquilo en casa y tu hora coordinada directamente con nosotras.</p>
+    <div class="hero-actions" data-hero-fade>
+      <a class="btn" href={whatsapp()} target="_blank" rel="noopener" data-cta="hero" data-magnetic>
+        <Icono nombre="whatsapp-logo" />
+        Consulta por WhatsApp
+      </a>
+      <a class="link" href="#resultados">Ver resultados</a>
+    </div>
+  </div>
+  <div class="hero-media">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 120 120"><defs><path id="badge-path" d="M60,60 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs><g class="badge-ring"><text><textPath href="#badge-path" textLength="300" lengthAdjust="spacing">DUAL BEAUTY STUDIO • RAUQUÉN • CURICÓ •</textPath></text></g></svg>
+      <span class="badge-mono">LG</span>
+    </div>
+    <figure class="main">
+      <div class="reveal">
+        <!-- LCP: carga prioritaria, sin lazy -->
+        <Picture src={resultado} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 720, 1086]} sizes="(max-width: 899px) calc(100vw - 96px), 544px"
+          alt="Cabello largo castaño, liso y con brillo, después de un alisado orgánico" loading="eager" fetchpriority="high" />
+        <span class="curtain" aria-hidden="true"></span>
+      </div>
+      <figcaption class="caption">Resultado</figcaption>
+    </figure>
+    <figure class="inset">
+      <div class="ring">
+        <Picture src={proceso} formats={['avif', 'webp']} fallbackFormat="webp" widths={[240, 420]} sizes="(max-width: 899px) 110px, 194px"
+          alt="Proceso de alisado: cabello húmedo seccionado con una pinza" loading="lazy" />
+      </div>
+      <figcaption class="caption">Proceso</figcaption>
+    </figure>
+  </div>
+</section>

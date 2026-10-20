@@ -1,0 +1,40 @@
+---
+import { Picture } from 'astro:assets';
+import Icono from './Icono.astro';
+import { SERVICIOS, whatsapp, mensajeServicio } from '../data/sitio';
+const areas = ['Todas', 'Mirada', 'Cabello', 'Piel'];
+---
+<section id="servicios" class="services" aria-labelledby="serv-title">
+  <div class="wrap">
+    <div class="svc-head">
+      <div class="section-head">
+        <h2 id="serv-title" class="h2 display" data-split>Seis cuidados, <em>tres áreas.</em></h2>
+        <p data-fade>Cada servicio abre WhatsApp con tu consulta lista. Te respondemos con valor y horarios.</p>
+      </div>
+      <div class="svc-filter" role="group" aria-label="Destacar servicios por área" data-fade>
+        <span class="svc-ind" aria-hidden="true"></span>
+        {areas.map((a, i) => <button type="button" data-area={a.toLowerCase()} aria-pressed={i === 0 ? "true" : "false"}>{a}</button>)}
+      </div>
+    </div>
+    <ul class="svc-grid">
+      {SERVICIOS.map((s) => (
+        <li class="card-wrap" data-area={s.area.toLowerCase()}>
+          <article class:list={['card', { 'card--deep': s.oscura }]}>
+            <span class="card-glow" aria-hidden="true"></span>
+            <div class="card-media">
+              <Picture src={s.imagen} formats={['avif', 'webp']} fallbackFormat="webp" widths={[400, 720, 1000]} sizes="(max-width: 899px) calc(100vw - 60px), 360px" alt={s.alt} loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div class="card-top"><span class="chip">{s.area}</span><span class="ref">Imagen referencial</span></div>
+              <h3 class="display">{s.nombre}</h3>
+              <p class="card-desc">{s.descripcion}</p>
+              <a class="card-cta" href={whatsapp(mensajeServicio(s.nombre))} target="_blank" rel="noopener" data-cta={`servicio-${s.id}`}>
+                Consultar este servicio <span class="cta-dot"><Icono nombre="arrow-up-right" /></span>
+              </a>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

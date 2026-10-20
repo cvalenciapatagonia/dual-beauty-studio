@@ -1,0 +1,35 @@
+---
+// Borrador: el texto legal se confirma con abogado antes del lanzamiento (Ley 21.719, ARQUITECTURA.md §7).
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { NEGOCIO, whatsapp } from '../data/sitio';
+---
+<Base titulo="Aviso de privacidad | Dual Beauty Studio" descripcion="Qué datos trata el sitio de Dual Beauty Studio y cómo contactarnos.">
+  <Header enPortada={false} />
+  <main class="wrap legal">
+    <p class="label">Aviso de privacidad</p>
+    <h1 class="h2 display">Tus datos, <em>con cuidado.</em></h1>
+
+    <h2>Qué datos pedimos</h2>
+    <p>Este sitio no tiene formularios ni cuentas de usuario. No te pedimos nombre, correo ni teléfono en la página.</p>
+
+    <h2>Cuando nos escribes por WhatsApp</h2>
+    <p>Los botones de consulta abren WhatsApp con un mensaje ya escrito. Desde ese momento la conversación ocurre en WhatsApp y se rige también por sus propias condiciones. Usamos lo que nos escribes solo para responder tu consulta y coordinar tu hora.</p>
+
+    <h2>Medición de visitas</h2>
+    <p>Podemos contar de forma agregada cuántas personas visitan el sitio y cuántas hacen clic en los botones de WhatsApp, para saber qué servicios interesan más. Si incorporamos una herramienta de medición, lo indicaremos aquí.</p>
+
+    <h2>Contacto</h2>
+    <p>Si tienes preguntas sobre tus datos, escríbenos por <a href={whatsapp('Hola, tengo una consulta sobre privacidad.')} target="_blank" rel="noopener">WhatsApp</a>. {NEGOCIO.nombre}, {NEGOCIO.localidad}.</p>
+  </main>
+  <Footer />
+</Base>
+
+<style is:global>
+  .legal { max-width: 46rem; padding-block: clamp(3rem, 7vw, 6rem); }
+  .legal h1 { margin: 16px 0 40px; }
+  .legal h2 { margin: 40px 0 8px; font-size: 1.25rem; font-weight: 600; }
+  .legal p { margin: 0; color: var(--ink-2); }
+  .legal p a { color: var(--accent); }
+</style>

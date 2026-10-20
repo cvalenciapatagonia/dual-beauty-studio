@@ -1,0 +1,25 @@
+---
+import { Picture } from 'astro:assets';
+import estudio from '../assets/fotos/estudio-sillon-espejo.webp';
+import Icono from './Icono.astro';
+import { NEGOCIO } from '../data/sitio';
+---
+<section id="espacio" class="wrap studio" aria-labelledby="studio-title">
+  <div class="studio-frame">
+    <div class="studio-media reveal">
+      <Picture src={estudio} formats={['avif', 'webp']} fallbackFormat="webp" widths={[640, 960, 1448]} sizes="(max-width: 899px) calc(100vw - 60px), 55vw"
+        alt="El estudio: sillón de peluquería frente a un espejo decorado con flores, muro de ladrillo blanco y ventana con persianas" loading="lazy" />
+      <span class="curtain" aria-hidden="true"></span>
+    </div>
+  </div>
+  <div class="studio-text">
+    <h2 id="studio-title" class="h2 display" data-split>Un espacio tranquilo para cuidarte, <em>en Rauquén.</em></h2>
+    <p data-fade>Ladrillo blanco, luz natural y una atención sin apuro. Te enviamos la dirección exacta al confirmar tu hora.</p>
+    <ul class="facts" data-fade>
+      <li><span class="fact-ic"><Icono nombre="users-three" /></span>Dos profesionales</li>
+      <li><span class="fact-ic"><Icono nombre="calendar-check" /></span>Hora coordinada contigo</li>
+      <li><span class="fact-ic"><Icono nombre="map-pin" /></span>{NEGOCIO.localidad}</li>
+    </ul>
+    <a class="link" href={NEGOCIO.instagram} target="_blank" rel="noopener" data-fade>Más del estudio en Instagram</a>
+  </div>
+</section>

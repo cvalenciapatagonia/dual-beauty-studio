@@ -1,0 +1,45 @@
+---
+import { Picture } from 'astro:assets';
+import proceso from '../assets/fotos/cabello-proceso-alisado.webp';
+import largoCastano from '../assets/fotos/cabello-resultado-largo-castano.webp';
+import medio from '../assets/fotos/cabello-resultado-medio-castano.webp';
+import largoOscuro from '../assets/fotos/cabello-resultado-largo-oscuro-exterior.webp';
+import Icono from './Icono.astro';
+
+const fotos = [
+  { img: proceso, titulo: 'Proceso de alisado', alt: 'Cabello seccionado durante el alisado' },
+  { img: largoCastano, titulo: 'Largo castaño', alt: 'Resultado de alisado en cabello largo castaño' },
+  { img: medio, titulo: 'Media melena', alt: 'Resultado de alisado en cabello castaño a la altura del hombro' },
+  { img: largoOscuro, titulo: 'Largo oscuro', alt: 'Resultado de alisado en cabello largo oscuro, al aire libre' },
+];
+---
+<section id="resultados" class="results" aria-labelledby="res-title">
+  <div class="wrap results-layout">
+    <div class="section-head">
+      <h2 id="res-title" class="h2 display" data-split>Del proceso <em>al brillo.</em></h2>
+      <p data-fade>Trabajos reales de nuestro estudio. Cada cabello es distinto: en la conversación te contamos qué resultado puedes esperar.</p>
+      <p class="hint" aria-hidden="true" data-fade><span class="hint-mouse">Pasa el mouse sobre una foto para verla y haz clic para ampliarla.</span><span class="hint-touch">Toca una foto para ampliarla.</span></p>
+    </div>
+    <div class="gallery">
+      <div class="accordion" role="group" aria-label="Fotos de resultados">
+        {fotos.map((f) => (
+          <button class="acc-item" type="button" data-caption={f.titulo} aria-label={`${f.titulo}. Ver foto ampliada`}>
+            <span class="g-media">
+              <Picture src={f.img} formats={['avif', 'webp']} fallbackFormat="webp" widths={[360, 640, 1024]} sizes="(max-width: 899px) 50vw, 560px" alt={f.alt} loading="lazy" />
+            </span>
+          </button>
+        ))}
+      </div>
+      <div class="acc-foot">
+        <p class="acc-caption" aria-live="polite">Cuatro trabajos reales</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+  <div class="lb-backdrop"></div>
+  <figure class="lb-frame"></figure>
+  <p class="lb-caption"></p>
+  <button class="lb-close" type="button"><Icono nombre="x" />Cerrar</button>
+</div>

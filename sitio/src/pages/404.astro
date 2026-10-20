@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icono from '../components/Icono.astro';
+import { whatsapp } from '../data/sitio';
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+---
+<Base titulo="Página no encontrada | Dual Beauty Studio">
+  <Header enPortada={false} />
+  <main class="wrap not-found">
+    <p class="label">Error 404</p>
+    <h1 class="h2 display">Esta página <em>no existe.</em></h1>
+    <p>Puede que el enlace esté mal escrito o que la página se haya movido. Vuelve al inicio o escríbenos directamente.</p>
+    <div class="hero-actions">
+      <a class="btn" href={whatsapp()} target="_blank" rel="noopener" data-cta="404"><Icono nombre="whatsapp-logo" />Consulta por WhatsApp</a>
+      <a class="link" href={base}>Volver al inicio</a>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style is:global>
+  .not-found { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; min-height: 60svh; justify-content: center; padding-block: clamp(4rem, 8vw, 7rem); }
+  .not-found > p:not(.label) { margin: 0; max-width: 34rem; color: var(--ink-2); }
+</style>

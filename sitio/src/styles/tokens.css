@@ -1,0 +1,23 @@
+/* Tokens de diseño de Dual Beauty Studio (DESIGN.md). Todo color, fuente, radio y curva sale de aquí. */
+:root {
+  /* Paleta Blanco (elegida el 2026-10-20): blanco del logo y del muro real, negro del logo, oro solo como acento.
+     Contraste WCAG 2.x: tinta 17,6:1 · tinta-2 7,4:1 · oro texto 6,1:1 · sobre negro: claro 16,2:1, claro-2 11:1, oro 8,9:1 */
+  --bg: #FBFAF7; --bg-2: #F0EDE8; --panel: #F1E8DC; --card-bg: #FFFFFF;
+  --ink: #151413; --ink-2: #57524C;
+  --accent: #7A5A24; --accent-deco: #A8844A; --glow: rgba(168, 132, 74, .26);
+  --deep: #171615; --on-deep: #F4F2EE; --on-deep-2: #CFC9C0; --on-deep-accent: #D2B27A;
+  --btn-bg: #151413; --btn-ink: #FBFAF7; --btn-bg-hover: #3B3732;
+  --line: #E1DCD3; --focus: #7A5A24;
+  --font-display: 'Bodoni Moda Variable', Georgia, serif;
+  --font-body: 'Jost Variable', system-ui, sans-serif;
+  /* Bodoni más gruesa: peso 600 y tamaño óptico de texto (trazos finos más firmes en tamaños grandes) */
+  --display-wght: 600; --display-opsz: "opsz" 18;
+  --h1: clamp(3rem, 6vw, 5.5rem); --h1-lh: 1;
+  --h2: clamp(2.25rem, 4vw, 3.5rem);
+  --label-ls: 0.2em;
+  --gutter: clamp(1.25rem, 5.5vw, 5rem);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Sistema de formas (único en toda la página):
+     fotos de cabello y letrero = arco; tarjetas = 28 px; fotos internas = 20 px; botones y etiquetas = píldora; círculos para íconos. */
+  --r-arch: 999px 999px 24px 24px; --r-card: 28px; --r-img: 20px; --r-pill: 999px; --r-sheet: 48px;
+}
