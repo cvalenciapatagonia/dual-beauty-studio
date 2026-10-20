@@ -65,7 +65,7 @@
   /* ---------- Header (80 px; se esconde al bajar, vuelve al subir) ---------- */
   /* El header acompaña todo el recorrido (sticky). Al dejar el inicio toma una sombra y el logo se achica
      con transform (sin cambiar el alto, para no mover la página). */
-  .site-header { position: sticky; top: 0; z-index: 30; background: var(--bg); transition: box-shadow .4s ease; }
+  .site-header { position: sticky; top: 0; z-index: 30; background: var(--bg-2); box-shadow: 0 1px 0 var(--line); transition: box-shadow .4s ease; }
   .site-header.is-scrolled { box-shadow: 0 1px 0 var(--line), 0 14px 30px -22px rgba(28, 24, 21, .4); }
   .header .logo img { transform-origin: left center; transition: transform .45s var(--ease-out); }
   .site-header.is-scrolled .header .logo img { transform: scale(.82); }
